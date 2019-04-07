@@ -55,26 +55,30 @@ const data = {
 };
 
 app.get('/data', (req, res) => {
-    res.json(data);
+    setTimeout(() => {
+        res.json(data);
+    }, 2000)
+
 });
 
 app.get('/data/:id', (req, res) => {
     if (!data.hasOwnProperty(req.params.id)) {
-        res.status(404).json({
+        return res.status(404).json({
             error: 'not found'
         })
     }
+
     res.json(data[req.params.id]);
 });
 
 app.delete('/data/:id', (req, res) => {
     if (!data.hasOwnProperty(req.params.id)) {
-        res.status(404).json({
+        return res.status(404).json({
             error: 'not found'
         })
     }
     delete data[req.params.id];
-    res.status(204).json({
+    res.status(200).json({
         ok: true
     })
 });
