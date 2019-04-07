@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const fs2 = require('mz/fs');
+const uuid = require('uuid');
+
 const app = express();
 
 const port = process.env.PORT || 3333;
@@ -68,7 +70,6 @@ app.get('/data/:id', (req, res) => {
             error: 'not found'
         })
     }
-
     res.json(data[req.params.id]);
 });
 
@@ -89,8 +90,14 @@ app.put('/data/:id', (req, res) => {
     res.status(201).end()
 });
 
+app.post('/data', (req, res) => {
+    const id = uuid.v4();
+    data[id] = req.body;
+    res.status(201).json({id})
+});
+
 app.get('/file', (req, res) => {
-    fs.readFile('file.txt', 'utf-8' ,(error, data) => {
+    fs.readFile('file.txt', 'utf-8', (error, data) => {
         if (error) {
             return res.status(404).json({
                 error: 'file not found'
