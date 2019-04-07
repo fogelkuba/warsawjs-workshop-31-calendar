@@ -1,8 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 const port = process.env.PORT || 3333;
+
+
+app.use(bodyParser.json());
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
@@ -19,10 +23,15 @@ app.get('/abc', (req, res) => {
 
     res.status(200);
     res.write('/GET ABC');
+    res.write('A: ' + req.query.a);
 
-    res.status(201).end('/GET ABC' + req.query.a)
+    res.status(201).end()
 });
 
+app.get('/abc/:id', (req, res) => {
+    console.log(req.params);
+    res.end(req.params.id)
+});
 
 app.post('/abc', (req, res) => {
     console.log('Server POST Abc');
