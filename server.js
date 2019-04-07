@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const fs = require('fs');
+const fs2 = require('mz/fs');
 const app = express();
 
 const port = process.env.PORT || 3333;
@@ -86,4 +87,29 @@ app.delete('/data/:id', (req, res) => {
 app.put('/data/:id', (req, res) => {
     data[req.params.id] = req.body;
     res.status(201).end()
+});
+
+app.get('/file', (req, res) => {
+    fs.readFile('file.txt', 'utf-8' ,(error, data) => {
+        if (error) {
+            return res.status(404).json({
+                error: 'file not found'
+            })
+        }
+        res.json({
+            data
+        });
+    })
+});
+
+app.get('/file2', (req, res) => {
+    fs2.readFile('file.txt', 'utf-8')
+        .then(data => {
+            res.json({data})
+        })
+        .catch(err => {
+            res.status(404).json({
+                error: 'file2 not found'
+            })
+        })
 });
