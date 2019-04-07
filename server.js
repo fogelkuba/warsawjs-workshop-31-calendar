@@ -5,12 +5,8 @@ const fs2 = require('mz/fs');
 const uuid = require('uuid');
 
 const app = express();
-
 const port = process.env.PORT || 3333;
-
-
 app.use(bodyParser.json());
-
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
@@ -58,10 +54,9 @@ const data = {
 };
 
 app.get('/data', (req, res) => {
-    setTimeout(() => {
+    // setTimeout(() => {
         res.json(data);
-    }, 2000)
-
+    // }, 2000)
 });
 
 app.get('/data/:id', (req, res) => {
@@ -85,6 +80,15 @@ app.delete('/data/:id', (req, res) => {
     })
 });
 
+app.patch('/data/:id', (req, res) => {
+   const old = data[req.params.id];
+   const change = req.body;
+   data[req.params.id] = { ...old, ...change};
+   res.status(200).json({
+       patched: 'ok'
+   })
+});
+
 app.put('/data/:id', (req, res) => {
     data[req.params.id] = req.body;
     res.status(201).end()
@@ -95,6 +99,13 @@ app.post('/data', (req, res) => {
     data[id] = req.body;
     res.status(201).json({id})
 });
+
+//
+//
+
+
+
+
 
 app.get('/file', (req, res) => {
     fs.readFile('file.txt', 'utf-8', (error, data) => {
