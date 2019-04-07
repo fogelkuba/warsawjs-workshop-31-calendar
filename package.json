@@ -20,6 +20,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mz": "^2.7.0",
+    "promise-redis": "0.0.5",
     "uuid": "^3.3.2"
   }
 }

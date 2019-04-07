@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const fs2 = require('mz/fs');
 const uuid = require('uuid');
+const redis = require('promise-redis');
 
 const app = express();
 const port = process.env.PORT || 3333;
