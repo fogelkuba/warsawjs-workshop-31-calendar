@@ -105,7 +105,7 @@ app.get('/file', (req, res) => {
 app.get('/file2', (req, res) => {
     fs2.readFile('file.txt', 'utf-8')
         .then(data => {
-            res.json({data})
+            res.json({data, msg: 'ok'})
         })
         .catch(err => {
             res.status(404).json({
