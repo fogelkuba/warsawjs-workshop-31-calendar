@@ -24,9 +24,7 @@ const data = {
 };
 
 app.get('/data', (req, res) => {
-    // setTimeout(() => {
-        res.json(data);
-    // }, 2000)
+    res.json(data);
 });
 
 app.get('/data/:id', (req, res) => {
