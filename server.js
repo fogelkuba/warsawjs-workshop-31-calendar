@@ -42,13 +42,44 @@ app.listen(port, () => {
 // });
 
 
-
-const data = {};
+const data = {
+    "1": {
+        "name": "Stephen"
+    },
+    "2": {
+        "name": "John"
+    },
+    "3": {
+        "name": "Peter"
+    }
+};
 
 app.get('/data', (req, res) => {
     res.json(data);
 });
 
-app.put('/data:id', (req, res) => {
-    data[req.params.id] = red.body;
-})
+app.get('/data/:id', (req, res) => {
+    if (!data.hasOwnProperty(req.params.id)) {
+        res.status(404).json({
+            error: 'not found'
+        })
+    }
+    res.json(data[req.params.id]);
+});
+
+app.delete('/data/:id', (req, res) => {
+    if (!data.hasOwnProperty(req.params.id)) {
+        res.status(404).json({
+            error: 'not found'
+        })
+    }
+    delete data[req.params.id];
+    res.status(204).json({
+        ok: true
+    })
+});
+
+app.put('/data/:id', (req, res) => {
+    data[req.params.id] = req.body;
+    res.status(201).end()
+});
