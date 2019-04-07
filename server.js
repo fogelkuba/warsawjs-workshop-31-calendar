@@ -68,34 +68,29 @@ app.post('/data', (req, res) => {
     res.status(201).json({id})
 });
 
+
 //
+// app.get('/file', (req, res) => {
+//     fs.readFile('file.txt', 'utf-8', (error, data) => {
+//         if (error) {
+//             return res.status(404).json({
+//                 error: 'file not found'
+//             })
+//         }
+//         res.json({
+//             data
+//         });
+//     })
+// });
 //
-
-
-
-
-
-app.get('/file', (req, res) => {
-    fs.readFile('file.txt', 'utf-8', (error, data) => {
-        if (error) {
-            return res.status(404).json({
-                error: 'file not found'
-            })
-        }
-        res.json({
-            data
-        });
-    })
-});
-
-app.get('/file2', (req, res) => {
-    fs2.readFile('file.txt', 'utf-8')
-        .then(data => {
-            res.json({data, msg: 'ok'})
-        })
-        .catch(err => {
-            res.status(404).json({
-                error: 'file2 not found'
-            })
-        })
-});
+// app.get('/file2', (req, res) => {
+//     fs2.readFile('file.txt', 'utf-8')
+//         .then(data => {
+//             res.json({data, msg: 'ok'})
+//         })
+//         .catch(err => {
+//             res.status(404).json({
+//                 error: 'file2 not found'
+//             })
+//         })
+// });
