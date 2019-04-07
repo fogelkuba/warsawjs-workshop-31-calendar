@@ -12,30 +12,43 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-app.get('/abc', (req, res) => {
-    console.log('Server GET Abc');
+// app.get('/abc', (req, res) => {
+//     console.log('Server GET Abc');
+//
+//     if (req.query.a == null) {
+//         return res.status(400).end('Error');
+//     }
+//
+//     console.log(req.query.a);
+//
+//     res.status(200);
+//     res.write('/GET ABC');
+//     res.write('A: ' + req.query.a);
+//
+//     res.status(201).end()
+// });
+//
+// app.get('/abc/:id', (req, res) => {
+//     console.log(req.params);
+//     res.end(req.params.id)
+// });
+//
+// app.post('/abc', (req, res) => {
+//     console.log('Server POST Abc');
+//
+//     res.status(200);
+//     console.log(req.body);
+//     res.end('/POST ABC')
+// });
 
-    if (req.query.a == null) {
-        return res.status(400).end('Error');
-    }
 
-    console.log(req.query.a);
 
-    res.status(200);
-    res.write('/GET ABC');
-    res.write('A: ' + req.query.a);
+const data = {};
 
-    res.status(201).end()
+app.get('/data', (req, res) => {
+    res.json(data);
 });
 
-app.get('/abc/:id', (req, res) => {
-    console.log(req.params);
-    res.end(req.params.id)
-});
-
-app.post('/abc', (req, res) => {
-    console.log('Server POST Abc');
-
-    res.status(403);
-    res.end('/POST ABC')
-});
+app.put('/data:id', (req, res) => {
+    data[req.params.id] = red.body;
+})
