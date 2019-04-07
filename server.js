@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const fs2 = require('mz/fs');
 const uuid = require('uuid');
-const redis = require('promise-redis');
+const redisDriver = require('promise-redis');
+
+const uri = process.env.REDIS_URL;
+const redis = redisDriver().createClient(uri);
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -12,16 +15,20 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
+redis.on('ready', async () => {
+    console.log('REDIS READY')
+})
+
 const data = {
-    "1": {
-        "name": "Stephen"
-    },
-    "2": {
-        "name": "John"
-    },
-    "3": {
-        "name": "Peter"
-    }
+    // "1": {
+    //     "name": "Stephen"
+    // },
+    // "2": {
+    //     "name": "John"
+    // },
+    // "3": {
+    //     "name": "Peter"
+    // }
 };
 
 app.get('/data', (req, res) => {
