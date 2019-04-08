@@ -15,6 +15,10 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
+redis.on('error', async (err) => {
+    console.log(err)
+})
+
 redis.on('ready', async () => {
     console.log('REDIS READY')
 })
